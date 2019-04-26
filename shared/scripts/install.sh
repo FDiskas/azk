@@ -60,7 +60,7 @@ main(){
     debug "Detected distribution: $OS, $OS_VERSION"
 
     # Check if linux distribution is compatible?
-    SUPPORTED_DISTROS="ubuntu fedora arch"
+    SUPPORTED_DISTROS="ubuntu fedora arch elementary"
     if ! echo ${SUPPORTED_DISTROS} | grep -qw "$ID"; then
       add_report "  Unsupported Linux distribution."
       fail
@@ -123,6 +123,12 @@ main(){
           fail
       esac
       install_azk_fedora
+      add_user_to_docker_group
+      success
+    fi
+
+    if [ "$ID" = "elementary" ]; then
+      install_azk_ubuntu
       add_user_to_docker_group
       success
     fi
